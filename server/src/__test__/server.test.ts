@@ -1,5 +1,3 @@
-//import request from "supertest";
-//import server from "../server";
 import { connectDB } from "../server";
 import db from "../config/db";
 jest.mock("../config/db")

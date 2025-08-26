@@ -1,11 +1,9 @@
-import colors from 'colors';
-import {validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
 
 
-export const handleInputErrors = (req:Request, res: Response, next:NextFunction ) => {
-    console.log(colors.yellow.bold("Validando datos de entrada..."));
-    // Verificar errores de validación
+export const handleInputErrors = (req: Request, res: Response, next: NextFunction) => {
+    console.log("Validando datos de entrada...");
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });

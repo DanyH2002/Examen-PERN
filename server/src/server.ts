@@ -1,7 +1,6 @@
 import express from 'express';
 import router from './router';
 import db from './config/db';
-import colors from 'colors';
 import swaggerSpect, { swaggerUiOptions } from './config/swagger';
 import swaggerUi, { serve } from 'swagger-ui-express';
 import cors from 'cors';
@@ -10,10 +9,10 @@ export async function connectDB() {
     try {
         await db.authenticate();
         db.sync();
-        console.log(colors.cyan.bold("Conexión a la base de datos establecida correctamente"));
+        console.log("Conexión a la base de datos establecida correctamente");
     }
     catch (error) {
-        console.log(colors.white.bgRed.bold("No se pudo conectar a la base de datos"));
+        console.log("No se pudo conectar a la base de datos");
     }
 }
 
