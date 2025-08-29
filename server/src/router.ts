@@ -31,10 +31,6 @@ const router = Router();
  *                      type: string
  *                      description: Breve descripcion del libro
  *                      example: Fantasia e historia sobre dos personajes que inspiraron
- *                  price:
- *                      type: number
- *                      description: El precio del libro
- *                      example: 300
  *                  publicationDate:
  *                      type: string
  *                      format: date
@@ -73,7 +69,7 @@ router.get('/books', handleInputErrors, getAllBooks);
 
 router.get('/books/:id',
     param('id')
-        .notEmpty().withMessage('El ID del usuario es obligatorio')
+        .notEmpty().withMessage('El ID del libro es obligatorio')
         .isNumeric().withMessage('El ID debe ser un número')
         .custom(value => value > 0).withMessage('El ID debe ser mayor que 0'),
     handleInputErrors, getBookById
@@ -108,8 +104,8 @@ router.get('/books/:id',
 
 router.post('/books',
     body('title')
-        .notEmpty().withMessage('El nombre de titulo del libto es obligatorio')
-        .isLength({ min: 3 }).withMessage('El titulo del libto  debe tener al menos 3 caracteres'),
+        .notEmpty().withMessage('El nombre del titulo del libto es obligatorio')
+        .isLength({ min: 3 }).withMessage('El titulo del libto debe tener al menos 3 caracteres'),
     body('author')
         .notEmpty().withMessage('El nombre del autor es obligatorio'),
     body('isbn')
@@ -119,7 +115,7 @@ router.post('/books',
     body('description')
         .notEmpty().withMessage('La descripcion del libro es obligatorio'),
     body('publicationDate')
-        .notEmpty().withMessage('El correo electrónico es obligatorio'),
+        .notEmpty().withMessage('La fecha de publicacion es obligatoria'),
     body('genre')
         .notEmpty().withMessage('El genero del libro es obligatorio')
         .isIn(['narrativo', 'lirico', 'didactico', 'dramatico']).withMessage('El genero debe ser: "narrativo,lirico, didactico o dramatico"'),
@@ -152,9 +148,6 @@ router.post('/books',
 *               description:
 *                 type: string
 *                 example: Fantasia e historia sobre dos personajes que inspiraron
-*               price:
-*                 type: number
-*                 example: 300
 *               publicationDate:
 *                 type: string
 *                 format: date
@@ -172,7 +165,7 @@ router.post('/books',
 
 router.put('/books/:id',
     param('id')
-        .notEmpty().withMessage('El ID del usuario es obligatorio')
+        .notEmpty().withMessage('El ID del libro es obligatorio')
         .isNumeric().withMessage('El ID debe ser un número')
         .custom(value => value > 0).withMessage('El ID debe ser mayor que 0'),
     body('title')
@@ -187,7 +180,7 @@ router.put('/books/:id',
     body('description')
         .notEmpty().withMessage('La descripcion del libro es obligatorio'),
     body('publicationDate')
-        .notEmpty().withMessage('El correo electrónico es obligatorio'),
+        .notEmpty().withMessage('La fecha de publicacion es obligatoria'),
     body('genre')
         .notEmpty().withMessage('El genero del libro es obligatorio')
         .isIn(['narrativo', 'lirico', 'didactico', 'dramatico']).withMessage('El genero debe ser: "narrativo,lirico, didactico o dramatico"'),
@@ -227,9 +220,6 @@ router.put('/books/:id',
 *               description:
 *                 type: string
 *                 example: Fantasia e historia sobre dos personajes que inspiraron
-*               price:
-*                 type: number
-*                 example: 300
 *               publicationDate:
 *                 type: string
 *                 format: date
@@ -249,7 +239,7 @@ router.put('/books/:id',
 
 router.patch('/books/:id',
     param('id')
-        .notEmpty().withMessage('El ID del usuario es obligatorio')
+        .notEmpty().withMessage('El ID del libro es obligatorio')
         .isNumeric().withMessage('El ID debe ser un número')
         .custom(value => value > 0).withMessage('El ID debe ser mayor que 0'),
     handleInputErrors, updateAvailability
@@ -280,7 +270,7 @@ router.patch('/books/:id',
 
 router.delete('/books/:id',
     param('id')
-        .notEmpty().withMessage('El ID del usuario es obligatorio')
+        .notEmpty().withMessage('El ID del libro es obligatorio')
         .isNumeric().withMessage('El ID debe ser un número')
         .custom(value => value > 0).withMessage('El ID debe ser mayor que 0'),
     handleInputErrors, deleteBook

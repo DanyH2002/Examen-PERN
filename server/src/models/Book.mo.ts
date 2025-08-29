@@ -44,15 +44,6 @@ class Book extends Model {
     declare description: string;
 
     @Column({
-        type: DataType.DECIMAL(10, 2),
-        allowNull: false,
-        validate: {
-            min: 1.1
-        }
-    })
-    declare price: number;
-
-    @Column({
         type: DataType.DATEONLY,
         allowNull: false,
         validate: {

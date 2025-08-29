@@ -21,10 +21,6 @@ export const getAllBooks = async (req: Request, res: Response) => {
             order: [
                 ['title', 'ASC']
             ],
-            where:
-            {
-                available: true
-            }
         });
         res.status(200).json({ data: book });
     } catch (error) {
@@ -36,7 +32,7 @@ export const getBookById = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const book = await Book.findByPk(id);
-        if (!book || !book.available) {
+        if (!book) {
             return res.status(404).json({ erro: 'Libro no encontrado' });
         }
         res.status(200).json({ data: book });
@@ -50,7 +46,7 @@ export const updateBook = async (req: Request, res: Response) => {
         const { id } = req.params;
         const { isbn } = req.body;
         const book = await Book.findByPk(id);
-        if (!book || !book.available) {
+        if (!book) {
             return res.status(404).json({ erro: 'Libro no encontrado' });
         }
         if (isbn !== book.isbn) {
@@ -63,7 +59,6 @@ export const updateBook = async (req: Request, res: Response) => {
         book.author = req.body.author;
         book.isbn = req.body.isbn;
         book.description = req.body.description;
-        book.price = req.body.price;
         book.publicationDate = req.body.publicationDate;
         book.genre = req.body.genre;
         await book.save();
@@ -77,7 +72,7 @@ export const deleteBook = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const book = await Book.findByPk(id);
-        if (!book || !book.available) {
+        if (!book) {
             return res.status(404).json({ erro: 'Libro no encontrado' });
         }
         await book.destroy();
@@ -91,7 +86,7 @@ export const updateAvailability = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const book = await Book.findByPk(id);
-        if (!book || !book.available) {
+        if (!book) {
             return res.status(404).json({ erro: 'Libro no encontrado' });
         }
         book.available = !book.dataValues.available;
