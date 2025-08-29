@@ -49,11 +49,9 @@ export const updateBook = async (req: Request, res: Response) => {
         if (!book) {
             return res.status(404).json({ erro: 'Libro no encontrado' });
         }
-        if (isbn !== book.isbn) {
-            const existingISBN = await Book.findOne({ where: { isbn } });
-            if (existingISBN) {
-                return res.status(400).json({ error: 'El ISBN ya fue registrado' });
-            }
+        const existingISBN = await Book.findOne({ where: { isbn } });
+        if (existingISBN && existingISBN.id !== book.id) {
+            return res.status(400).json({ error: 'El ISBN ya fue registrado' });
         }
         book.title = req.body.title;
         book.author = req.body.author;

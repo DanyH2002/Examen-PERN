@@ -152,36 +152,38 @@ describe("PUT /api/books/:id", () => {
     });
     it("Retornar 400 si el ISBN del libro ya fue registrado", async () => {
         const createRes1 = await request(server).post('/api/books').send({
-            title: 'Thunder',
-            author: 'Lauen M.',
-            isbn: '0385738935',
-            description: 'Hisotria sobre la fuerza del amor',
-            price: 400,
-            publicationDate: '2012-04-08',
+            title: 'Libro A',
+            author: 'Autor A',
+            isbn: '1234567890',
+            description: 'Descripción A',
+            price: 100,
+            publicationDate: '2000-01-01',
             genre: 'narrativo'
         });
         expect(createRes1.status).toBe(201);
         const createRes2 = await request(server).post('/api/books').send({
-            title: 'La odisea',
-            author: 'Homero',
-            isbn: '6571420983',
-            description: 'Hisotria sobre una aventura',
-            price: 300,
-            publicationDate: '1990-04-08',
-            genre: 'narrativo'
+            title: 'Libro B',
+            author: 'Autor B',
+            isbn: '0987654321',
+            description: 'Descripción B',
+            price: 200,
+            publicationDate: '2010-01-01',
+            genre: 'dramatico'
         });
         expect(createRes2.status).toBe(201);
-        const id = createRes2.body.data.id;
-        const res = await request(server).put(`/api/books/${id}`).send({
-            title: 'Thunder',
-            author: 'Lauen M.',
-            isbn: '0385738935',
-            description: 'Hisotria sobre la fuerza del amor',
-            price: 400,
-            publicationDate: '2012-04-08',
+
+        const idB = createRes2.body.data.id;
+        const res = await request(server).put(`/api/books/${idB}`).send({
+            title: 'Libro B Actualizado',
+            author: 'Autor B',
+            isbn: '1234567890', 
+            description: 'Nueva descripción',
+            price: 250,
+            publicationDate: '2010-01-01',
             genre: 'narrativo'
         });
         expect(res.status).toBe(400);
+        expect(res.body).toHaveProperty('error', 'El ISBN ya fue registrado');
     });
     it("Retornar 200 si el libro se actualiza correctamente", async () => {
         const createRes = await request(server).post('/api/books').send({
@@ -313,7 +315,7 @@ describe("Pase de logs", () => {
             }
         };
         const res: any = { json: jest.fn(), status: jest.fn(() => res) };
-        jest.spyOn(Book, "findOne").mockResolvedValueOnce(null); 
+        jest.spyOn(Book, "findOne").mockResolvedValueOnce(null);
         jest.spyOn(Book, "create").mockRejectedValueOnce(new Error("Error al registrar el libro"));
         const logSpy = jest.spyOn(console, "log").mockImplementation(() => { });
         await createBook(req, res);
