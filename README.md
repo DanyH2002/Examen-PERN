@@ -68,7 +68,7 @@ PORT=4000
 DATABASE_URL=postgresql://<usuario>:<contraseña>@<host>:<puerto>/<db>?ssl=true
 ```
 
-**Frontend (`client/.env`):**
+**Frontend (`client/fornt-pern/.env`):**
 ```env
 VITE_API_URL=http://localhost:4000/api
 ```
@@ -83,7 +83,7 @@ npm install
 
 **Frontend:**
 ```bash
-cd ../client
+cd ../client/front-pern
 npm install
 ```
 
@@ -97,7 +97,7 @@ npm run dev
 
 **Frontend:**
 ```bash
-cd client
+cd client/front-pern
 npm run dev
 ```
 
@@ -124,11 +124,13 @@ Abre el navegador en: 👉 **http://localhost:5173** (o el puerto que indique Vi
 
 **Ejecutar pruebas:**
 ```bash
+cd server
 npm test
 ```
 
 **Ejecutar pruebas con cobertura:**
 ```bash
+cd server
 npm run test:coverage
 ```
 
@@ -148,4 +150,5 @@ npm run test:coverage
 **Hulda Daniela Crisanto Luna**  
 📧 [danielacrisantoluna@gmail.com](mailto:danielacrisantoluna@gmail.com)  
 🔗 [GitHub](https://github.com/DanyH2002)
+
 
